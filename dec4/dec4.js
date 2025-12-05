@@ -8,6 +8,7 @@ const data = fs.readFileSync("dec4.txt", "utf8");
 const paper = data.split("\n").filter((line) => line.trim() !== "");
 
 let numpapercollected = 0;
+let numpapercollected2 = 0;
 
 function isThreeAdjacentorless(x, y, maxX,maxY) {
 let numpaper = 0 
@@ -141,6 +142,33 @@ else if(y==maxY){//bottom
     return true;
  }
 }
+function isThreeAdjacentorless2(x, y, maxX, maxY) {
+    let numpaper = 0;
+    
+    // All 8 possible neighbor directions: [dx, dy]
+    const directions = [
+        [-1, -1], [-1, 0], [-1, 1],  // top row
+        [0, -1],           [0, 1],   // middle row (skip [0,0] - current cell)
+        [1, -1],  [1, 0],  [1, 1]    // bottom row
+    ];
+    
+    // Check each neighbor direction
+    for (const [dx, dy] of directions) {
+        const nx = x + dx;
+        const ny = y + dy;
+        
+        // Bounds checking: ensure neighbor is within grid
+        if (nx >= 0 && nx < maxX && ny >= 0 && ny < maxY) {
+            if (paper[nx].charAt(ny) === '@') {
+                numpaper++;
+            }
+        }
+    }
+    
+    // Return true if 3 or fewer adjacent '@' characters
+    return numpaper <= 3;
+}
+
 
 //build out array
 const arr = [];
@@ -159,7 +187,10 @@ for (let i = 0; i < paper.length; i++) {
     if(isThreeAdjacentorless(i,j,paper.length, paper[i].length) && paper[i].charAt(j)=='@'){
         numpapercollected++;
     }
+    if(isThreeAdjacentorless2(i,j,paper.length, paper[i].length) && paper[i].charAt(j)=='@'){
+        numpapercollected2++;
+    }
   }
 }
 console.log(numpapercollected);
-
+console.log(numpapercollected2);
