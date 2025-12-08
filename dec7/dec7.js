@@ -7,6 +7,8 @@ const data = fs.readFileSync("dec7.txt", "utf8");
 // Split into lines (if needed)
 const lines = data.split("\n").filter((line) => line.trim() !== "");
 
+//help from cursor for the full logic
+
 function setCharAt(str, index, chr) {
   if (index > str.length - 1) return str;
   return str.substring(0, index) + chr + str.substring(index + 1);
@@ -97,6 +99,8 @@ for (var i = 0; i < lines[0].length; i++) {
 
 const splitCount = cascadeBeams(lines);
 console.log("Total splits:", splitCount);
+
+//My first attempt
 
 // Previous implementation (commented out):
 // for (var i = 2; i < lines.length; i++) {
